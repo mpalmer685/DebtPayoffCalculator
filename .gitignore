@@ -1,0 +1,55 @@
+## Windows
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin
+$RECYCLE.BIN/
+
+# Windows Installer Files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Shortcuts
+*.lnk
+
+
+## OS X
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+
+## JetBrains
+
+# User-specific
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+
+# Sensitive & high-churn files
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+# File-based project format
+*.iws
+
+# Node/npm modules
+node_modules/
+npm-debug.log
+
+# Application build artifacts
+build/
