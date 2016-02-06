@@ -7,6 +7,8 @@ import { Router } from 'react-router'
 import configureStore from 'store/configureStore'
 import routes from './routes'
 
+require('./styles/style.less')
+
 const history = createHistory()
 const store = configureStore(history)
 
