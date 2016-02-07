@@ -1,47 +1,69 @@
 import React from 'react'
 import { Button, ButtonToolbar, Input, Panel } from 'react-bootstrap'
 
-const AccountCreationForm = ({ account, onFormUpdate, onFormReset }) => {
-    const handleNameUpdate = onFormUpdate.bind(null, 'name')
-    const handleInterestUpdate = onFormUpdate.bind(null, 'interestRate')
-    const handleBalanceUpdate = onFormUpdate.bind(null, 'balance')
-    const handleMinimumPaymentUpdate = onFormUpdate.bind(null, 'minimumPayment')
-
+const AccountFormInput = (props) => {
+    const handleChange = props.onValueChange.bind(null, props.formKey)
     return (
-        <Panel header="Create new account">
-            <form>
-                <Input type="text"
-                       onChange={handleNameUpdate}
-                       value={account.name}
-                       label="Account Name"/>
-                <Input type="text"
-                       onChange={handleInterestUpdate}
-                       value={account.interestRate}
-                       label="Interest Rate"
-                       addonAfter="%"/>
-                <Input type="number"
-                       onChange={handleBalanceUpdate}
-                       value={account.balance}
-                       label="Account Balance"
-                       addonBefore="$"/>
-                <Input type="number"
-                       onChange={handleMinimumPaymentUpdate}
-                       value={account.minimumPayment}
-                       label="Minimum Monthly Payment"
-                       addonBefore="$"/>
-                <div style={{ float: 'right' }}>
-                    <ButtonToolbar>
-                        <Button bsStyle="danger"
-                                onClick={onFormReset}>
-                            {'Reset'}
-                        </Button>
-                        <Button bsStyle="primary">{'Add Account'}</Button>
-                    </ButtonToolbar>
-                </div>
-            </form>
-        </Panel>
+        <Input onChange={handleChange}
+               value={props.account[props.formKey]}
+               {...props}/>
     )
 }
+
+AccountFormInput.propTypes = {
+    account: React.PropTypes.object,
+    formKey: React.PropTypes.string.isRequired,
+    onValueChange: React.PropTypes.func.isRequired
+}
+
+const AccountFormTextInput = props => (
+    <AccountFormInput type="text"
+                      {...props}/>
+)
+
+const AccountFormPercentInput = props => (
+    <AccountFormInput type="number"
+                      addonAfter="%"
+                      {...props}/>
+)
+
+const AccountFormCurrencyInput = props => (
+    <AccountFormInput type="number"
+                      addonBefore="$"
+                      {...props}/>
+)
+
+const AccountCreationForm = ({ account, onFormUpdate, onFormReset }) => (
+    <Panel header="Create new account">
+        <form>
+            <AccountFormTextInput account={account}
+                                    formKey="name"
+                                    onValueChange={onFormUpdate}
+                                    label="Account Name"/>
+            <AccountFormPercentInput account={account}
+                                     formKey="interestRate"
+                                     onValueChange={onFormUpdate}
+                                     label="InterestRate"/>
+            <AccountFormCurrencyInput account={account}
+                                      formKey="balance"
+                                      onValueChange={onFormUpdate}
+                                      label="Account Balance"/>
+            <AccountFormCurrencyInput account={account}
+                                      formKey="minimumPayment"
+                                      onValueChange={onFormUpdate}
+                                      label="Minimum Montly Payment"/>
+            <div style={{ float: 'right' }}>
+                <ButtonToolbar>
+                    <Button bsStyle="danger"
+                            onClick={onFormReset}>
+                        {'Reset'}
+                    </Button>
+                    <Button bsStyle="primary">{'Add Account'}</Button>
+                </ButtonToolbar>
+            </div>
+        </form>
+    </Panel>
+)
 
 AccountCreationForm.propTypes = {
     account: React.PropTypes.object.isRequired,
