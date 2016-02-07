@@ -33,6 +33,9 @@ new WebpackDevServer(compiler, {
     hot: true,
     historyApiFallback: true,
     publicPath: devServerConfig.output.publicPath,
+    watchOptions: {
+        poll: 1000
+    },
     stats: {
         colors: true
     }
