@@ -22,8 +22,8 @@ class App extends React.Component {
                     <Nav bsStyle="tabs"
                          activeKey={this.props.pathname}
                          onSelect={this.handleNavigation}>
-                        <NavItem eventKey="/">Payoff Calculator</NavItem>
-                        <NavItem eventKey="/accounts">Accounts</NavItem>
+                        <NavItem eventKey="/">{'Payoff Calculator'}</NavItem>
+                        <NavItem eventKey="/accounts">{'Accounts'}</NavItem>
                     </Nav>
                 </Navbar>
                 {this.props.children}

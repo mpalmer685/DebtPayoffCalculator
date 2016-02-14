@@ -1,4 +1,5 @@
 import keymirror from 'keymirror'
+import dispatchAction from './dispatchAction'
 
 export const AccountFormTypes = keymirror({
     UPDATE_FORM: null,
@@ -12,9 +13,9 @@ export function updateForm(key, value) {
         formValue: value
     }
 
-    return dispatch => dispatch(action)
+    return dispatchAction(action)
 }
 
 export function resetForm() {
-    return dispatch => dispatch({ type: AccountFormTypes.RESET_FORM })
+    return dispatchAction({ type: AccountFormTypes.RESET_FORM })
 }
