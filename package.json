@@ -4,11 +4,12 @@
   "description": "Debt Payoff Calculator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "NODE_PATH=./source mocha --compilers js:babel-core/register --require test/test_setup.js --recursive --colors",
+    "start": "node server.js",
+    "coverage": "NODE_PATH=./source babel-node ./node_modules/.bin/isparta cover _mocha -- --compilers js:babel-core/register --require test/test_setup.js --colors --recursive test/"
   },
   "author": "Mike Palmer",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "babel": "^6.3.26",
     "classnames": "^2.2.3",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1",
+    "babel-cli": "^6.5.1",
     "babel-core": "^6.4.5",
     "babel-eslint": "^4.1.8",
     "babel-loader": "^6.2.2",
@@ -40,6 +42,8 @@
     "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.8.1",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.2",
     "jsdom": "^8.0.2",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
