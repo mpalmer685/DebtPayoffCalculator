@@ -63,4 +63,14 @@ describe('AccountFormReducer', () => {
             }
         )).to.be.an.instanceOf(Account)
     })
+
+    it('should clear the current form when an account is added', () => {
+        expect(reducer(
+            formWithName,
+            {
+                type: AccountFormTypes.ADD_ACCOUNT,
+                account: formWithName
+            }
+        )).to.eql(emptyForm)
+    })
 })

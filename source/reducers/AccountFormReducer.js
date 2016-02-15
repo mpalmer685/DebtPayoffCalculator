@@ -13,6 +13,7 @@ export default function (state = DefaultState, action) {
             { [action.formKey]: action.formValue }
         )
     case AccountFormTypes.RESET_FORM:
+    case AccountFormTypes.ADD_ACCOUNT:
         return DefaultState
     default:
         return state
