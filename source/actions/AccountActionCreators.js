@@ -1,4 +1,5 @@
 import keymirror from 'keymirror'
+import { LOCAL_STORAGE, StorageType } from 'middleware/LocalStorage'
 import dispatchAction from './dispatchAction'
 
 export const AccountFormTypes = keymirror({
@@ -23,7 +24,13 @@ export function resetForm() {
 
 export function addAccount(account) {
     const action = {
-        type: AccountFormTypes.ADD_ACCOUNT,
+        [LOCAL_STORAGE]: {
+            types: [StorageType.APPEND_ARRAY, AccountFormTypes.ADD_ACCOUNT],
+            payload: {
+                key: 'accounts',
+                value: account
+            }
+        },
         account
     }
 

@@ -2,7 +2,7 @@ import { syncHistory } from 'react-router-redux'
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
-
+import storage from 'middleware/LocalStorage'
 import rootReducer from 'reducers'
 import DevTools from 'containers/DevTools'
 
@@ -10,7 +10,7 @@ export default function (history, initialState) {
     let historyMiddleware = syncHistory(history)
 
     const finalCreateStore = compose(
-        applyMiddleware(thunk, createLogger(), historyMiddleware),
+        applyMiddleware(thunk, storage, createLogger(), historyMiddleware),
         window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
     )(createStore)
 
