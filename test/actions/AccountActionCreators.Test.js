@@ -39,8 +39,13 @@ describe('AccountActionCreators', () => {
         it('dispatches an ADD_ACCOUNT action', () => {
             const account = new Account('name', 'interestRate', 'balance', 'payment')
             dispatchExpect(AccountActions.addAccount(account), action => {
-                expect(action).to.have.all.keys('type', 'account')
-                expect(action.type).to.equal(AccountActions.AccountFormTypes.ADD_ACCOUNT)
+                expect(action).to.have.all.keys('LOCAL_STORAGE', 'account')
+
+                expect(action.LOCAL_STORAGE).to.be.an('object')
+                expect(action.LOCAL_STORAGE).to.have.all.keys('types', 'payload')
+                expect(action.LOCAL_STORAGE.types).to.eql(['APPEND_ARRAY', AccountActions.AccountFormTypes.ADD_ACCOUNT])
+                expect(action.LOCAL_STORAGE.payload).to.have.all.keys('key', 'value')
+
                 expect(action.account).to.equal(account)
             })
         })
