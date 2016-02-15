@@ -4,11 +4,7 @@ import { connect } from 'react-redux'
 import Account from 'models/Account'
 import validateAccount from 'models/AccountFormValidation'
 import { updateForm, resetForm, addAccount } from 'actions/AccountActionCreators'
-import AccountCreationForm from 'components/Accounts/AccountCreationForm'
-
-const AccountList = () => (
-    <h3>{'Account List'}</h3>
-)
+import { AccountCreationForm, AccountList } from 'components/Accounts'
 
 function formIsValid({ name, interestRate, balance, minimumPayment }) {
     return !name && !interestRate && !balance && !minimumPayment

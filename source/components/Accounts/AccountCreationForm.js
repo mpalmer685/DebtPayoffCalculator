@@ -93,4 +93,4 @@ AccountCreationForm.propTypes = {
     onFormSubmit: React.PropTypes.func.isRequired
 }
 
-export default AccountCreationForm
+export { AccountCreationForm }
