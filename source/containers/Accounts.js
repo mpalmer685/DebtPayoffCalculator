@@ -3,12 +3,16 @@ import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Account from 'models/Account'
 import validateAccount from 'models/AccountFormValidation'
-import { updateForm, resetForm } from 'actions/AccountActionCreators'
+import { updateForm, resetForm, addAccount } from 'actions/AccountActionCreators'
 import AccountCreationForm from 'components/Accounts/AccountCreationForm'
 
 const AccountList = () => (
     <h3>{'Account List'}</h3>
 )
+
+function formIsValid({ name, interestRate, balance, minimumPayment }) {
+    return !name && !interestRate && !balance && !minimumPayment
+}
 
 class Accounts extends React.Component {
     constructor() {
@@ -32,7 +36,12 @@ class Accounts extends React.Component {
     }
 
     handleFormSubmit() {
-        this.setState({ formValidation: validateAccount(this.props.currentFormAccount) })
+        const formValidation = validateAccount(this.props.currentFormAccount)
+        this.setState({ formValidation })
+
+        if (formIsValid(formValidation)) {
+            this.props.addAccount(this.props.currentFormAccount)
+        }
     }
 
     render() {
@@ -59,7 +68,8 @@ class Accounts extends React.Component {
 Accounts.propTypes = {
     currentFormAccount: React.PropTypes.instanceOf(Account).isRequired,
     updateForm: React.PropTypes.func.isRequired,
-    resetForm: React.PropTypes.func.isRequired
+    resetForm: React.PropTypes.func.isRequired,
+    addAccount: React.PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -68,4 +78,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { updateForm, resetForm })(Accounts)
+export default connect(mapStateToProps, { updateForm, resetForm, addAccount })(Accounts)

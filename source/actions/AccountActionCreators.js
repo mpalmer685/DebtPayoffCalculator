@@ -3,7 +3,8 @@ import dispatchAction from './dispatchAction'
 
 export const AccountFormTypes = keymirror({
     UPDATE_FORM: null,
-    RESET_FORM: null
+    RESET_FORM: null,
+    ADD_ACCOUNT: null
 })
 
 export function updateForm(key, value) {
@@ -18,4 +19,13 @@ export function updateForm(key, value) {
 
 export function resetForm() {
     return dispatchAction({ type: AccountFormTypes.RESET_FORM })
+}
+
+export function addAccount(account) {
+    const action = {
+        type: AccountFormTypes.ADD_ACCOUNT,
+        account
+    }
+
+    return dispatchAction(action)
 }

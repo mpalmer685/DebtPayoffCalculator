@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-
+import Account from 'models/Account'
 import * as AccountActions from 'actions/AccountActionCreators'
 
 describe('AccountActionCreators', () => {
@@ -31,6 +31,17 @@ describe('AccountActionCreators', () => {
             dispatchExpect(AccountActions.resetForm(), action => {
                 expect(action).to.contain.key('type')
                 expect(action.type).to.equal(AccountActions.AccountFormTypes.RESET_FORM)
+            })
+        })
+    })
+
+    describe('addAccount', () => {
+        it('dispatches an ADD_ACCOUNT action', () => {
+            const account = new Account('name', 'interestRate', 'balance', 'payment')
+            dispatchExpect(AccountActions.addAccount(account), action => {
+                expect(action).to.have.all.keys('type', 'account')
+                expect(action.type).to.equal(AccountActions.AccountFormTypes.ADD_ACCOUNT)
+                expect(action.account).to.equal(account)
             })
         })
     })
