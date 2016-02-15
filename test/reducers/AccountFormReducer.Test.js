@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import reducer from 'reducers/AccountFormReducer'
 import { AccountFormTypes } from 'actions/AccountActionCreators'
+import Account from 'models/Account'
 
 const emptyForm = {
     name: '',
@@ -35,5 +36,31 @@ describe('AccountFormReducer', () => {
                 formValue: 'nameValue'
             }
         )).to.eql(formWithName)
+    })
+
+    it('should not mutate the initial state', () => {
+        const initialState = Object.assign({}, emptyForm)
+        Object.freeze(initialState)
+
+        reducer(
+            initialState,
+            {
+                type: AccountFormTypes.UPDATE_FORM,
+                formKey: 'name',
+                formValue: 'nameValue'
+            })
+
+        expect(initialState).to.eql(emptyForm)
+    })
+
+    it('should edit Account objects on update', () => {
+        expect(reducer(
+            emptyForm,
+            {
+                type: AccountFormTypes.UPDATE_FORM,
+                formKey: 'name',
+                formValue: 'nameValue'
+            }
+        )).to.be.an.instanceOf(Account)
     })
 })

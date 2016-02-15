@@ -1,7 +1,8 @@
 import React from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-
+import Account from 'models/Account'
+import validateAccount from 'models/AccountFormValidation'
 import { updateForm, resetForm } from 'actions/AccountActionCreators'
 import AccountCreationForm from 'components/Accounts/AccountCreationForm'
 
@@ -13,8 +14,13 @@ class Accounts extends React.Component {
     constructor() {
         super()
 
+        this.state = {
+            formValidation: {}
+        }
+
         this.handleFormUpdate = this.handleFormUpdate.bind(this)
         this.handleResetForm = this.handleResetForm.bind(this)
+        this.handleFormSubmit = this.handleFormSubmit.bind(this)
     }
 
     handleFormUpdate(key, event) {
@@ -23,6 +29,10 @@ class Accounts extends React.Component {
 
     handleResetForm() {
         this.props.resetForm()
+    }
+
+    handleFormSubmit() {
+        this.setState({ formValidation: validateAccount(this.props.currentFormAccount) })
     }
 
     render() {
@@ -35,8 +45,10 @@ class Accounts extends React.Component {
                     <Col md={5}
                          mdOffset={1}>
                         <AccountCreationForm account={this.props.currentFormAccount}
+                                             formValidation={this.state.formValidation}
                                              onFormUpdate={this.handleFormUpdate}
-                                             onFormReset={this.handleResetForm}/>
+                                             onFormReset={this.handleResetForm}
+                                             onFormSubmit={this.handleFormSubmit}/>
                     </Col>
                 </Row>
             </Grid>
@@ -45,7 +57,7 @@ class Accounts extends React.Component {
 }
 
 Accounts.propTypes = {
-    currentFormAccount: React.PropTypes.object.isRequired,
+    currentFormAccount: React.PropTypes.instanceOf(Account).isRequired,
     updateForm: React.PropTypes.func.isRequired,
     resetForm: React.PropTypes.func.isRequired
 }
