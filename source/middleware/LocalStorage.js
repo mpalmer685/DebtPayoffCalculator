@@ -40,7 +40,7 @@ export default store => next => action => {
         storeValue = JSON.stringify(array)
         break
     default:
-        break
+        return next(actionWith({ type: nextType }))
     }
 
     localStorage.setItem(key, storeValue)
