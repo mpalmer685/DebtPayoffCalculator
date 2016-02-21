@@ -6,8 +6,7 @@ export const StorageType = keymirror({
     APPEND_ARRAY: null
 })
 
-// noinspection Eslint
-export default store => next => action => {
+export default (/* store */) => next => action => {
     const storage = action[LOCAL_STORAGE]
     if (typeof storage === 'undefined') {
         return next(action)
