@@ -4,9 +4,23 @@
   "description": "Debt Payoff Calculator",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_PATH=./source mocha --compilers js:babel-core/register --require test/test_setup.js --recursive --colors",
-    "start": "node server.js",
-    "coverage": "NODE_PATH=./source babel-node ./node_modules/.bin/isparta cover _mocha -- --compilers js:babel-core/register --require test/test_setup.js --colors --recursive test/"
+    "test": "better-npm-run test",
+    "coverage": "better-npm-run coverage",
+    "start": "node server.js"
+  },
+  "betterScripts": {
+    "test": {
+      "command": "mocha --compilers js:babel-core/register --require test/test_setup.js --colors --recursive test/",
+      "env": {
+        "NODE_PATH": "./source"
+      }
+    },
+    "coverage": {
+      "command": "babel-node ./node_modules/.bin/isparta cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --require test/test_setup.js --colors --recursive test/",
+      "env": {
+        "NODE_PATH": "./source"
+      }
+    }
   },
   "author": "Mike Palmer",
   "license": "MIT",
@@ -17,7 +31,7 @@
     "keymirror": "^0.1.1",
     "lodash": "^4.2.1",
     "react": "^0.14.7",
-    "react-bootstrap": "^0.28.2",
+    "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "react-router": "^1.0.3",
@@ -34,6 +48,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
+    "better-npm-run": "0.0.7",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "enforce-node-path": "^1.0.0",
