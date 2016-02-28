@@ -11,3 +11,30 @@ body {
 .applicationContainer {
   height: 85vh;
 }
+
+.full-width {
+  width: 100%;
+}
+
+/* Alignment */
+
+.display-as-table {
+  display: table;
+
+  > span {
+    display: table-cell;
+  }
+}
+
+.right {
+  .full-width;
+  text-align: right;
+}
+
+.bottom {
+  .display-as-table;
+
+  > span {
+    vertical-align: bottom;
+  }
+}
