@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
+import map from 'lodash/map'
 import storage, { LOCAL_STORAGE, StorageType } from 'middleware/LocalStorage'
 
 function storeAction(action) {
@@ -100,6 +101,55 @@ describe('LocalStorage Middleware', () => {
             localStorage.setItem(key, JSON.stringify(['firstValue']))
             storeAction(action)
             expect(localStorage.getItem(key)).to.equal(JSON.stringify(['firstValue', 'arrayValue']))
+        })
+    })
+
+    describe('REMOVE_FROM_ARRAY action', () => {
+        const key = 'testArray'
+        const action = {
+            [LOCAL_STORAGE]: {
+                types: [StorageType.REMOVE_FROM_ARRAY, 'nextAction'],
+                payload: {
+                    key,
+                    idAttribute: 'id',
+                    idValue: 2
+                }
+            }
+        }
+        const callbackAction = {
+            [LOCAL_STORAGE]: {
+                types: [StorageType.REMOVE_FROM_ARRAY, 'nextAction'],
+                payload: {
+                    key,
+                    shouldRemove: obj => obj.id === 2
+                }
+            }
+        }
+
+        const buildArray = id => ({ id })
+
+        beforeEach(() => {
+            // Clear the test array
+            localStorage.setItem(key, undefined)
+        })
+
+        it('should remove the item from an existing array', () => {
+            const initialArray = map([1, 2, 3, 4], buildArray)
+            localStorage.setItem(key, JSON.stringify(initialArray))
+            storeAction(action)
+            expect(JSON.parse(localStorage.getItem(key))).to.eql(map([1, 3, 4], buildArray))
+        })
+
+        it('should remove the item using a callback', () => {
+            const initialArray = map([1, 2, 3, 4], buildArray)
+            localStorage.setItem(key, JSON.stringify(initialArray))
+            storeAction(callbackAction)
+            expect(JSON.parse(localStorage.getItem(key))).to.eql(map([1, 3, 4], buildArray))
+        })
+
+        it('should ignore an array that does not exist', () => {
+            expect(() => storeAction(action)).to.not.throw()
+            expect(localStorage.getItem(key)).to.be.undefined
         })
     })
 })
