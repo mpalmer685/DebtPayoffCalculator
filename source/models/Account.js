@@ -8,9 +8,7 @@ class Account {
         this.interestRate = interestRate
         this.balance = balance
         this.minimumPayment = minimumPayment
-
-        const id = generateId()
-        this.getId = () => id
+        this.id = generateId()
     }
 
     isEmpty() {

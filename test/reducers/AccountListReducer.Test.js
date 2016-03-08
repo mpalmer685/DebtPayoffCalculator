@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import omit from 'lodash/omit'
 import reducer from 'reducers/AccountListReducer'
 import { AccountFormTypes } from 'actions/AccountActionCreators'
 import Account from 'models/Account'
@@ -10,10 +11,11 @@ describe('AccountListReducer', () => {
     })
 
     it('should handle adding an account', () => {
-        expect(reducer([], {
+        const result = reducer([], {
             type: AccountFormTypes.ADD_ACCOUNT,
             account: new Account()
-        })).to.eql([new Account()])
+        })
+        expect(map(result, account => omit(account, 'id'))).to.eql([omit(new Account(), 'id')])
     })
 
     it('should not mutate the initial state', () => {

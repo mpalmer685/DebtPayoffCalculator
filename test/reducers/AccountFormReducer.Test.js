@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import omit from 'lodash/omit'
 import reducer from 'reducers/AccountFormReducer'
 import { AccountFormTypes } from 'actions/AccountActionCreators'
 import Account from 'models/Account'
@@ -19,23 +20,25 @@ const formWithName = {
 
 describe('AccountFormReducer', () => {
     it('should ignore unknown actions', () => {
-        expect(reducer(undefined, { type: 'unknown' })).to.eql(emptyForm)
+        expect(omit(reducer(undefined, { type: 'unknown' }), 'id')).to.eql(emptyForm)
         expect(reducer({}, { type: 'unknown' })).to.eql({})
     })
 
     it('should handle form reset', () => {
-        expect(reducer(formWithName, { type: AccountFormTypes.RESET_FORM })).to.eql(emptyForm)
+        const result = reducer(formWithName, { type: AccountFormTypes.RESET_FORM })
+        expect(omit(result, 'id')).to.eql(emptyForm)
     })
 
     it('should handle form update', () => {
-        expect(reducer(
+        const result = reducer(
             emptyForm,
             {
                 type: AccountFormTypes.UPDATE_FORM,
                 formKey: 'name',
                 formValue: 'nameValue'
             }
-        )).to.eql(formWithName)
+        )
+        expect(omit(result, 'id')).to.eql(formWithName)
     })
 
     it('should not mutate the initial state', () => {
@@ -65,12 +68,13 @@ describe('AccountFormReducer', () => {
     })
 
     it('should clear the current form when an account is added', () => {
-        expect(reducer(
+        const result = reducer(
             formWithName,
             {
                 type: AccountFormTypes.ADD_ACCOUNT,
                 account: formWithName
             }
-        )).to.eql(emptyForm)
+        )
+        expect(omit(result, 'id')).to.eql(emptyForm)
     })
 })
