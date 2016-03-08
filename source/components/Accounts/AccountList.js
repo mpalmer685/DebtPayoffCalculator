@@ -1,9 +1,9 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap'
-import { map } from 'lodash'
+import map from 'lodash/map'
 
-const AccountRow = ({ account }) => (
+const AccountRow = ({ account, onRemoveAccount }) => (
     <ListGroupItem>
         <Row>
             <Col xs={10}>
@@ -54,18 +54,25 @@ const AccountRow = ({ account }) => (
         <Row>
             <Col xs={12}>
                 <div className="right">
-                    <a style={{ fontSize: 'smaller' }}>{'Remove'}</a>
+                    <a style={{ fontSize: 'smaller' }}
+                       onClick={onRemoveAccount}>
+                        {'Remove'}
+                    </a>
                 </div>
             </Col>
         </Row>
     </ListGroupItem>
 )
 
-const AccountList = ({ accounts }) => {
-    const accountList = map(accounts, account => (
-        <AccountRow key={account.getId()}
-                    account={account}/>
-    ))
+const AccountList = ({ accounts, onRemoveAccount }) => {
+    const accountList = map(accounts, account => {
+        const handleRemoveAccount = onRemoveAccount.bind(null, account.id)
+        return (
+            <AccountRow key={account.id}
+                        onRemoveAccount={handleRemoveAccount}
+                        account={account}/>
+        )
+    })
 
     return (
         <div style={{ height: '90%' }}>
@@ -79,7 +86,8 @@ const AccountList = ({ accounts }) => {
 }
 
 AccountList.propTypes = {
-    accounts: React.PropTypes.array.isRequired
+    accounts: React.PropTypes.array.isRequired,
+    onRemoveAccount: React.PropTypes.func.isRequired
 }
 
 export default AccountList

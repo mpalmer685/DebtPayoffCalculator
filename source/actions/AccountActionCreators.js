@@ -5,7 +5,8 @@ import dispatchAction from './dispatchAction'
 export const AccountFormTypes = keymirror({
     UPDATE_FORM: null,
     RESET_FORM: null,
-    ADD_ACCOUNT: null
+    ADD_ACCOUNT: null,
+    DELETE_ACCOUNT: null
 })
 
 export function updateForm(key, value) {
@@ -32,6 +33,21 @@ export function addAccount(account) {
             }
         },
         account
+    }
+
+    return dispatchAction(action)
+}
+
+export function deleteAccount(accountId) {
+    const action = {
+        [LOCAL_STORAGE]: {
+            types: [StorageType.REMOVE_FROM_ARRAY, AccountFormTypes.DELETE_ACCOUNT],
+            payload: {
+                key: 'accounts',
+                shouldRemove: account => account.id === accountId
+            }
+        },
+        accountId
     }
 
     return dispatchAction(action)

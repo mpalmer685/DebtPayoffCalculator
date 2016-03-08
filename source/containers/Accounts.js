@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Account from 'models/Account'
 import validateAccount from 'models/AccountFormValidation'
-import { updateForm, resetForm, addAccount } from 'actions/AccountActionCreators'
+import { updateForm, resetForm, addAccount, deleteAccount } from 'actions/AccountActionCreators'
 import { AccountCreationForm, AccountList } from 'components/Accounts'
 
 function formIsValid({ name, interestRate, balance, minimumPayment }) {
@@ -21,6 +21,7 @@ class Accounts extends React.Component {
         this.handleFormUpdate = this.handleFormUpdate.bind(this)
         this.handleResetForm = this.handleResetForm.bind(this)
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
+        this.handleRemoveAccount = this.handleRemoveAccount.bind(this)
     }
 
     handleFormUpdate(key, event) {
@@ -40,12 +41,17 @@ class Accounts extends React.Component {
         }
     }
 
+    handleRemoveAccount(accountId) {
+        this.props.deleteAccount(accountId)
+    }
+
     render() {
         return (
             <Grid>
                 <Row>
                     <Col md={6}>
-                        <AccountList accounts={this.props.accounts}/>
+                        <AccountList accounts={this.props.accounts}
+                                     onRemoveAccount={this.handleRemoveAccount}/>
                     </Col>
                     <Col md={5}
                          mdOffset={1}>
@@ -66,7 +72,8 @@ Accounts.propTypes = {
     currentFormAccount: React.PropTypes.instanceOf(Account).isRequired,
     updateForm: React.PropTypes.func.isRequired,
     resetForm: React.PropTypes.func.isRequired,
-    addAccount: React.PropTypes.func.isRequired
+    addAccount: React.PropTypes.func.isRequired,
+    deleteAccount: React.PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -76,4 +83,12 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { updateForm, resetForm, addAccount })(Accounts)
+export default connect(
+    mapStateToProps,
+    {
+        updateForm,
+        resetForm,
+        addAccount,
+        deleteAccount
+    }
+)(Accounts)
