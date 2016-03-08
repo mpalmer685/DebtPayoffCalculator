@@ -19,7 +19,12 @@ class App extends React.Component {
         return (
             <div className="applicationContainer">
                 <Navbar>
-                    <Nav bsStyle="tabs"
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            {'Debt Payoff Calculator'}
+                        </Navbar.Brand>
+                    </Navbar.Header>
+                    <Nav pullRight
                          activeKey={this.props.pathname}
                          onSelect={this.handleNavigation}>
                         <NavItem eventKey="/">{'Payoff Calculator'}</NavItem>

@@ -45,7 +45,7 @@ class Accounts extends React.Component {
             <Grid>
                 <Row>
                     <Col md={6}>
-                        <AccountList/>
+                        <AccountList accounts={this.props.accounts}/>
                     </Col>
                     <Col md={5}
                          mdOffset={1}>
@@ -62,6 +62,7 @@ class Accounts extends React.Component {
 }
 
 Accounts.propTypes = {
+    accounts: React.PropTypes.array.isRequired,
     currentFormAccount: React.PropTypes.instanceOf(Account).isRequired,
     updateForm: React.PropTypes.func.isRequired,
     resetForm: React.PropTypes.func.isRequired,
@@ -70,6 +71,7 @@ Accounts.propTypes = {
 
 function mapStateToProps(state) {
     return {
+        accounts: state.accounts || [],
         currentFormAccount: state.currentFormAccount
     }
 }
