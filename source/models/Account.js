@@ -4,19 +4,27 @@ function generateId() {
 
 class Account {
     constructor(name = '', interestRate = '', balance = '', minimumPayment = '') {
-        this.name = name
+        this.accountName = name
         this.interestRate = interestRate
         this.balance = balance
         this.minimumPayment = minimumPayment
-        this.id = generateId()
+        this.accountId = generateId()
     }
 
     isEmpty() {
-        return this.name === '' && this.interestRate === '' && this.balance === '' && this.minimumPayment === ''
+        return this.accountName === '' &&
+            this.interestRate === '' &&
+            this.balance === '' &&
+            this.minimumPayment === ''
     }
 
     isPopulated() {
-        return !(this.name === '' || this.interestRate === '' || this.balance === '' || this.minimumPayment === '')
+        return !(
+            this.accountName === '' ||
+            this.interestRate === '' ||
+            this.balance === '' ||
+            this.minimumPayment === ''
+        )
     }
 }
 

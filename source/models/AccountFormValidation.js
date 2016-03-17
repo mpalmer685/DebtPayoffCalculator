@@ -64,7 +64,7 @@ function isMinimumPaymentValid(minimumPayment) {
 
 export default function (account) {
     return {
-        name: isNameValid(account.name),
+        name: isNameValid(account.accountName),
         interestRate: isInterestRateValid(account.interestRate),
         balance: isBalanceValid(account.balance),
         minimumPayment: isMinimumPaymentValid(account.minimumPayment)

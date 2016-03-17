@@ -16,7 +16,7 @@ describe('AccountListReducer', () => {
             type: AccountFormTypes.ADD_ACCOUNT,
             account: new Account()
         })
-        expect(map(result, account => omit(account, 'id'))).to.eql([omit(new Account(), 'id')])
+        expect(map(result, account => omit(account, 'accountId'))).to.eql([omit(new Account(), 'accountId')])
     })
 
     it('should not mutate the initial state', () => {
@@ -44,7 +44,7 @@ describe('AccountListReducer', () => {
 
         const action = {
             type: AccountFormTypes.DELETE_ACCOUNT,
-            accountId: initialState[1].id
+            accountId: initialState[1].accountId
         }
 
         const nextState = reducer(initialState, action)

@@ -7,7 +7,7 @@ const AccountRow = ({ account, onRemoveAccount }) => (
     <ListGroupItem>
         <Row>
             <Col xs={10}>
-                <h4>{account.name}</h4>
+                <h4>{account.accountName}</h4>
             </Col>
             <Col xs={2}>
                 <div className="bottom right"

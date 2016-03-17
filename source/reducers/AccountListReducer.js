@@ -16,7 +16,7 @@ export default function (state = DefaultState, action) {
     case AccountFormTypes.ADD_ACCOUNT:
         return [...state, action.account]
     case AccountFormTypes.DELETE_ACCOUNT:
-        return reject(state, account => account.id === action.accountId)
+        return reject(state, account => account.accountId === action.accountId)
     default:
         return state
     }

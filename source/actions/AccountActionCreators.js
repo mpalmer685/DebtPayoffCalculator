@@ -1,8 +1,8 @@
-import keymirror from 'keymirror'
+import keyMirror from 'keymirror'
 import { LOCAL_STORAGE, StorageType } from 'middleware/LocalStorage'
 import dispatchAction from './dispatchAction'
 
-export const AccountFormTypes = keymirror({
+export const AccountFormTypes = keyMirror({
     UPDATE_FORM: null,
     RESET_FORM: null,
     ADD_ACCOUNT: null,

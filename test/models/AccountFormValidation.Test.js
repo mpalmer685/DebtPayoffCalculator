@@ -15,7 +15,7 @@ describe('AccountFormValidation', () => {
         })
 
         it('should return no error when the name is not empty', () => {
-            account.name = 'name'
+            account.accountName = 'name'
             expect(validateAccount(account).name).to.equal(undefined)
         })
     })

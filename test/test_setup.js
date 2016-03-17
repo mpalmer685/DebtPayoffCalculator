@@ -11,15 +11,15 @@ global.window = win
 
 class LocalStorage {
     constructor() {
-        this.data = {}
+        this.testData = {}
     }
 
     setItem(key, value) {
-        this.data[key] = value
+        this.testData[key] = value
     }
 
     getItem(key) {
-        return this.data[key]
+        return this.testData[key]
     }
 }
 

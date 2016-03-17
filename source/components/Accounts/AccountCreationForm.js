@@ -5,7 +5,7 @@ import Account from 'models/Account'
 const AccountFormInput = (props) => {
     const handleChange = props.onValueChange.bind(null, props.formKey)
     return (
-        <Input bsStyle={props.formValidation[props.formKey] ? 'error' : undefined}
+        <Input bsStyle={props.formValidation[props.formKey] ? 'error' : null}
                help={props.formValidation[props.formKey]}
                onChange={handleChange}
                value={props.account[props.formKey]}
@@ -43,7 +43,7 @@ const AccountCreationForm = ({ account, formValidation, onFormUpdate, onFormRese
             <form>
                 <AccountFormTextInput account={account}
                                       formValidation={formValidation}
-                                      formKey="name"
+                                      formKey="accountName"
                                       onValueChange={onFormUpdate}
                                       label="Account Name"/>
                 <AccountFormPercentInput account={account}
@@ -60,7 +60,7 @@ const AccountCreationForm = ({ account, formValidation, onFormUpdate, onFormRese
                                           formValidation={formValidation}
                                           formKey="minimumPayment"
                                           onValueChange={onFormUpdate}
-                                          label="Minimum Montly Payment"/>
+                                          label="Minimum Monthly Payment"/>
                 <div style={{ float: 'right' }}>
                     <ButtonToolbar>
                         <Button bsStyle="danger"
@@ -83,7 +83,7 @@ const AccountCreationForm = ({ account, formValidation, onFormUpdate, onFormRese
 AccountCreationForm.propTypes = {
     account: React.PropTypes.instanceOf(Account).isRequired,
     formValidation: React.PropTypes.shape({
-        name: React.PropTypes.string,
+        accountName: React.PropTypes.string,
         interestRate: React.PropTypes.string,
         balance: React.PropTypes.string,
         minimumPayment: React.PropTypes.string

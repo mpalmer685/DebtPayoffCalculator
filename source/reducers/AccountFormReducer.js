@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import Account from 'models/Account'
 import { AccountFormTypes } from 'actions/AccountActionCreators'
 

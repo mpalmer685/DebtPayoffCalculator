@@ -1,9 +1,9 @@
-import keymirror from 'keymirror'
+import keyMirror from 'keymirror'
 import reject from 'lodash/reject'
 
 export const LOCAL_STORAGE = 'LOCAL_STORAGE'
 
-export const StorageType = keymirror({
+export const StorageType = keyMirror({
     APPEND_ARRAY: null,
     REMOVE_FROM_ARRAY: null
 })

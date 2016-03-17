@@ -5,14 +5,14 @@ import { AccountFormTypes } from 'actions/AccountActionCreators'
 import Account from 'models/Account'
 
 const emptyForm = {
-    name: '',
+    accountName: '',
     interestRate: '',
     balance: '',
     minimumPayment: ''
 }
 
 const formWithName = {
-    name: 'nameValue',
+    accountName: 'nameValue',
     interestRate: '',
     balance: '',
     minimumPayment: ''
@@ -20,13 +20,13 @@ const formWithName = {
 
 describe('AccountFormReducer', () => {
     it('should ignore unknown actions', () => {
-        expect(omit(reducer(undefined, { type: 'unknown' }), 'id')).to.eql(emptyForm)
+        expect(omit(reducer(undefined, { type: 'unknown' }), 'accountId')).to.eql(emptyForm)
         expect(reducer({}, { type: 'unknown' })).to.eql({})
     })
 
     it('should handle form reset', () => {
         const result = reducer(formWithName, { type: AccountFormTypes.RESET_FORM })
-        expect(omit(result, 'id')).to.eql(emptyForm)
+        expect(omit(result, 'accountId')).to.eql(emptyForm)
     })
 
     it('should handle form update', () => {
@@ -34,11 +34,11 @@ describe('AccountFormReducer', () => {
             emptyForm,
             {
                 type: AccountFormTypes.UPDATE_FORM,
-                formKey: 'name',
+                formKey: 'accountName',
                 formValue: 'nameValue'
             }
         )
-        expect(omit(result, 'id')).to.eql(formWithName)
+        expect(omit(result, 'accountId')).to.eql(formWithName)
     })
 
     it('should not mutate the initial state', () => {
@@ -75,6 +75,6 @@ describe('AccountFormReducer', () => {
                 account: formWithName
             }
         )
-        expect(omit(result, 'id')).to.eql(emptyForm)
+        expect(omit(result, 'accountId')).to.eql(emptyForm)
     })
 })

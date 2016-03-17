@@ -6,8 +6,8 @@ describe('Account', () => {
     describe('constructor', () => {
         it('should initialize empty strings when called with no arguments', () => {
             const account = new Account()
-            expect(omit(account, 'id')).to.eql({
-                name: '',
+            expect(omit(account, 'accountId')).to.eql({
+                accountName: '',
                 interestRate: '',
                 balance: '',
                 minimumPayment: ''
@@ -16,8 +16,8 @@ describe('Account', () => {
 
         it('should assign constructor arguments', () => {
             const account = new Account('name', 'interestRate', 'balance', 'minimumPayment')
-            expect(omit(account, 'id')).to.eql({
-                name: 'name',
+            expect(omit(account, 'accountId')).to.eql({
+                accountName: 'name',
                 interestRate: 'interestRate',
                 balance: 'balance',
                 minimumPayment: 'minimumPayment'
