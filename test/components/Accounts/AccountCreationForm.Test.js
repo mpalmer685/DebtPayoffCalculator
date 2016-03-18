@@ -1,8 +1,10 @@
 import React from 'react'
+import { findDOMNode } from 'react-dom'
 import chai from 'chai'
 import TestUtils from 'react-addons-test-utils'
 import forEach from 'lodash/forEach'
 import values from 'lodash/values'
+import filter from 'lodash/filter'
 import Account from 'models/Account'
 import { AccountCreationForm } from 'components/Accounts/AccountCreationForm'
 
@@ -68,7 +70,16 @@ describe('AccountCreationForm', () => {
                 account={account}/>
         )
 
-        TestUtils.findAllInRenderedTree(form, whatAmI => { console.log(whatAmI)})
+        const inputFields = TestUtils.scryRenderedDOMComponentsWithTag(form, 'input')
+        const warningFields = filter(inputFields, field => {
+            if (field.props.help === 'Account Name Warning') {
+                console.log(findDOMNode(field).getAttribute('help'))
+                return true
+            }
+
+            return false
+        })
+        expect(warningFields).to.have.lengthOf(1)
     })
 
     it('handles updates to form input')
