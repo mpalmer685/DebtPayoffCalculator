@@ -149,7 +149,7 @@ describe('LocalStorage Middleware', () => {
 
         it('should ignore an array that does not exist', () => {
             expect(() => storeAction(action)).to.not.throw()
-            expect(localStorage.getItem(key)).to.equal('[]')
+            expect(localStorage.getItem(key)).to.not.be.ok
         })
     })
 })
