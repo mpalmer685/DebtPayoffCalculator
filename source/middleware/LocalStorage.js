@@ -1,4 +1,5 @@
 import keyMirror from 'keymirror'
+import merge from 'lodash/merge'
 import reject from 'lodash/reject'
 
 export const LOCAL_STORAGE = 'LOCAL_STORAGE'
@@ -18,7 +19,7 @@ export default (/* store */) => next => action => {
     const { key } = storage.payload
 
     const storedValue = localStorage.getItem(key)
-    let array = storedValue ? JSON.parse(storedValue) : []
+    let array = storedValue && storedValue !== 'undefined' ? JSON.parse(storedValue) : []
 
     if (!Array.isArray(types) || types.length !== 2) {
         throw new Error('Expected an array of two action types.')
@@ -28,7 +29,7 @@ export default (/* store */) => next => action => {
     }
 
     function actionWith(data) {
-        const finalAction = Object.assign({}, action, data)
+        const finalAction = merge({}, action, data)
         delete finalAction[LOCAL_STORAGE]
         return finalAction
     }

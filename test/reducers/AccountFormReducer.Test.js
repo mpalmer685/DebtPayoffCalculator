@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import omit from 'lodash/omit'
+import merge from 'lodash/merge'
 import reducer from 'reducers/AccountFormReducer'
 import { AccountFormTypes } from 'actions/AccountActionCreators'
 import Account from 'models/Account'
@@ -42,7 +43,7 @@ describe('AccountFormReducer', () => {
     })
 
     it('should not mutate the initial state', () => {
-        const initialState = Object.assign({}, emptyForm)
+        const initialState = merge({}, emptyForm)
         Object.freeze(initialState)
 
         reducer(
