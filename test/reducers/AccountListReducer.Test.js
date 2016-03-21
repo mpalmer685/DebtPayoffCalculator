@@ -34,6 +34,12 @@ describe('AccountListReducer', () => {
         expect(initialState).to.eql([])
     })
 
+    it('should load accounts from local storage', () => {
+        const account = new Account('name')
+        localStorage.setItem('accounts', JSON.stringify([account]))
+        expect(reducer(undefined, {})).to.eql([account])
+    })
+
     it('should handle removing an account', () => {
         const initialState = [
             new Account('first'),

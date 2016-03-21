@@ -9,9 +9,9 @@ function loadDefaultState() {
     const accounts = storedAccounts ? JSON.parse(storedAccounts) : []
     return map(accounts, account => merge(new Account(), account))
 }
-const DefaultState = loadDefaultState()
+const defaultState = () => loadDefaultState()
 
-export default function (state = DefaultState, action) {
+export default function (state = defaultState(), action) {
     switch (action.type) {
     case AccountFormTypes.ADD_ACCOUNT:
         return [...state, action.account]

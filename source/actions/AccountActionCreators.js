@@ -44,7 +44,7 @@ export function deleteAccount(accountId) {
             types: [StorageType.REMOVE_FROM_ARRAY, AccountFormTypes.DELETE_ACCOUNT],
             payload: {
                 key: 'accounts',
-                shouldRemove: account => account.id === accountId
+                shouldRemove: account => account.accountId === accountId
             }
         },
         accountId

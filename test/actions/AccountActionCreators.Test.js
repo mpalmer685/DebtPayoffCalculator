@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import Account from 'models/Account'
+import { LOCAL_STORAGE, StorageType } from 'middleware/LocalStorage'
 import * as AccountActions from 'actions/AccountActionCreators'
 
 describe('AccountActionCreators', () => {
@@ -39,14 +40,41 @@ describe('AccountActionCreators', () => {
         it('dispatches an ADD_ACCOUNT action', () => {
             const account = new Account('name', 'interestRate', 'balance', 'payment')
             dispatchExpect(AccountActions.addAccount(account), action => {
-                expect(action).to.have.all.keys('LOCAL_STORAGE', 'account')
+                expect(action).to.have.all.keys(LOCAL_STORAGE, 'account')
 
-                expect(action.LOCAL_STORAGE).to.be.an('object')
-                expect(action.LOCAL_STORAGE).to.have.all.keys('types', 'payload')
-                expect(action.LOCAL_STORAGE.types).to.eql(['APPEND_ARRAY', AccountActions.AccountFormTypes.ADD_ACCOUNT])
-                expect(action.LOCAL_STORAGE.payload).to.have.all.keys('key', 'value')
+                expect(action[LOCAL_STORAGE]).to.be.an('object')
+                expect(action[LOCAL_STORAGE]).to.have.all.keys('types', 'payload')
+                expect(action[LOCAL_STORAGE].types).to.eql([
+                    StorageType.APPEND_ARRAY,
+                    AccountActions.AccountFormTypes.ADD_ACCOUNT
+                ])
+                expect(action[LOCAL_STORAGE].payload).to.have.all.keys('key', 'value')
 
                 expect(action.account).to.equal(account)
+            })
+        })
+    })
+
+    describe('deleteAccount', () => {
+        it('dispatches a DELETE_ACCOUNT action', () => {
+            const account = new Account('name', 'interestRate', 'balance', 'payment')
+            dispatchExpect(AccountActions.deleteAccount(account.accountId), action => {
+                expect(action).to.have.all.keys(LOCAL_STORAGE, 'accountId')
+                const localStorage = action[LOCAL_STORAGE]
+
+                expect(localStorage).to.be.an('object')
+                expect(localStorage).to.have.all.keys('types', 'payload')
+                expect(localStorage.types).to.eql([
+                    StorageType.REMOVE_FROM_ARRAY,
+                    AccountActions.AccountFormTypes.DELETE_ACCOUNT
+                ])
+
+                expect(localStorage.payload).to.have.all.keys('key', 'shouldRemove')
+                expect(localStorage.payload.key).to.equal('accounts')
+                expect(localStorage.payload.shouldRemove).to.be.a('function')
+                expect(localStorage.payload.shouldRemove(account)).to.be.true
+
+                expect(action.accountId).to.equal(account.accountId)
             })
         })
     })
